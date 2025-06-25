@@ -68,6 +68,24 @@ switch ($provider) {
             'stream' => false
         ];
         break;
+        
+    case 'gemini':
+        $url = GOOGLE_GEMINI_API_URL.'/v1beta/models/gemini-2.0-flash:generateContent?key='.GOOGLE_GEMINI_API_KEY;
+        $headers = [
+            'Content-Type: application/json'
+        ];
+        $data = [
+            'contents' => [
+                [
+                    'parts' => [
+                        [
+                            'text' => $message
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        break;
 
     default:
         http_response_code(400);
@@ -89,7 +107,9 @@ if (!$result['success']) {
 
 // Extract response content
 $responseContent = '';
-if (isset($result['data']['choices'][0]['message']['content'])) {
+if ($provider === 'gemini' && isset($result['data']['candidates'][0]['content']['parts'][0]['text'])) {
+    $responseContent = $result['data']['candidates'][0]['content']['parts'][0]['text'];
+} else if (isset($result['data']['choices'][0]['message']['content'])) {
     $responseContent = $result['data']['choices'][0]['message']['content'];
 } else {
     $responseContent = 'Sorry, I couldn\'t generate a response.';

@@ -72,6 +72,21 @@ if (!checkSessionTimeout()) {
                     </div>
                 </form>
             </div>
+            <div class="chat-room new-layout">
+                <div class="chat-room-header gemini-header">
+                    <h3>Google Gemini Chat</h3>
+                </div>
+                <div class="chat-messages" id="gemini-messages"></div>
+                <form class="chat-input-container" onsubmit="event.preventDefault();sendMessage('gemini');">
+                    <div class="chat-input-group">
+                        <input type="text" class="form-control chat-input" id="gemini-input" placeholder="Type your message..." autocomplete="off">
+                        <button type="submit" class="btn btn--primary send-btn">Send</button>
+                        <button type="button" class="icon-btn clear-btn" title="Clear Chat" onclick="clearChat('gemini')">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 9V14M10 9V14M12.5 9V14M3.333 5.833h13.334M5.833 5.833V15.833a1.667 1.667 0 001.667 1.667h5a1.667 1.667 0 001.667-1.667V5.833m-8.334 0V4.167A1.667 1.667 0 017.5 2.5h5a1.667 1.667 0 011.667 1.667v1.666" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </main>
     </div>
     <script src="assets/app.js"></script>
@@ -82,6 +97,9 @@ if (!checkSessionTimeout()) {
         });
         document.getElementById('openrouter-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') sendMessage('openrouter');
+        });
+        document.getElementById('gemini-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage('gemini');
         });
         function logout() {
             if (confirm('Are you sure you want to logout?')) {

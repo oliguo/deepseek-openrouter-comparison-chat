@@ -498,7 +498,7 @@ body {
     position: relative;
     z-index: 2;
 }
-.openrouter-header {
+.openrouter-header, .gemini-header {
     flex-wrap: wrap;
     gap: 0.7rem;
 }
