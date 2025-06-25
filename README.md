@@ -2,6 +2,12 @@
 
 A web application that allows users to compare responses from DeepSeek and OpenRouter AI models side by side in a dual chat interface.
 
+## Preview
+
+![Application Preview](screens/preview.png)
+
+[![Watch the demo video](screens/preview.png)](screens/preview.mp4)
+
 ## Features
 
 - **Dual Chat Interface**: Compare responses from DeepSeek and OpenRouter models simultaneously
@@ -25,6 +31,9 @@ A web application that allows users to compare responses from DeepSeek and OpenR
 ├── includes/             # PHP includes
 │   ├── functions.php     # Helper functions
 │   └── session.php       # Session management
+├── screens/              # Preview media
+│   ├── preview.mp4       # Demo video
+│   └── preview.png       # Screenshot
 ├── .gitignore            # Git ignore file
 ├── .htaccess             # Apache configuration
 ├── home.php              # Main chat interface
