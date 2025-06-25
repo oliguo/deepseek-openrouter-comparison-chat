@@ -1,6 +1,6 @@
-# DeepSeek vs OpenRouter Chat Comparison
+# DeepSeek vs OpenRouter vs Others Chat Comparison
 
-A web application that allows users to compare responses from DeepSeek and OpenRouter AI models side by side in a dual chat interface.
+A web application that allows users to compare responses from DeepSeek, OpenRouter AI models and Others side by side in a dual chat interface.
 
 ## Preview
 
