@@ -6,7 +6,8 @@ A web application that allows users to compare responses from DeepSeek and OpenR
 
 ![Application Preview](screens/preview.png)
 
-[![Watch the demo video](screens/preview.png)](screens/preview.mp4)
+<video src="screens/preview.mp4" controls="controls" style="max-width: 730px;">
+</video>
 
 ## Features
 
