@@ -16,10 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Validate CSRF token
 $headers = getallheaders();
-$csrfToken = $headers['X-Csrf-Token'] ?? '';
+// Check for token in different case variations
+$csrfToken = $headers['X-Csrf-Token'] ?? $headers['X-CSRF-Token'] ?? $headers['x-csrf-token'] ?? '';
 if (!validateCSRFToken($csrfToken)) {
     http_response_code(403);
-    echo json_encode(['error' => 'Invalid CSRF token', 'token' => $csrfToken, 'headers' => $headers]);
+    echo json_encode(['error' => 'Invalid CSRF token', 'token' => $csrfToken]);
     exit();
 }
 

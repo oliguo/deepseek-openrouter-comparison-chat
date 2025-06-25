@@ -7,10 +7,20 @@ async function sendMessage(provider) {
     
     if (!message) return;
     
-    // Get model for OpenRouter
+    // Get model for OpenRouter (autocomplete version)
     let model = '';
     if (provider === 'openrouter') {
-        model = document.getElementById('openrouter-model').value;
+        if (typeof window.getOpenRouterSelectedModel === 'function') {
+            model = window.getOpenRouterSelectedModel();
+        } else {
+            // fallback for legacy select (should not happen)
+            const select = document.getElementById('openrouter-model');
+            if (select) model = select.value;
+        }
+        if (!model) {
+            addMessage(messagesId, 'Please select a model before sending.', 'error');
+            return;
+        }
     }
     
     // Add user message to chat
@@ -25,9 +35,9 @@ async function sendMessage(provider) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': csrf_token
+                'X-Csrf-Token': csrf_token
             },
-            credentials: 'same-origin', // <-- Add this line
+            credentials: 'same-origin',
             body: JSON.stringify({
                 message: message,
                 provider: provider,
