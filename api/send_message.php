@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Validate CSRF token
 $headers = getallheaders();
-$csrfToken = $headers['X-CSRF-Token'] ?? '';
+$csrfToken = $headers['X-Csrf-Token'] ?? '';
 if (!validateCSRFToken($csrfToken)) {
     http_response_code(403);
-    echo json_encode(['error' => 'Invalid CSRF token']);
+    echo json_encode(['error' => 'Invalid CSRF token', 'token' => $csrfToken, 'headers' => $headers]);
     exit();
 }
 
@@ -37,9 +37,10 @@ if (empty($message) || empty($provider)) {
 // Prepare API request based on provider
 switch ($provider) {
     case 'deepseek':
-        $url = DEEPSEEK_API_URL;
+        $url = DEEPSEEK_API_URL.'/chat/completions';
         $headers = [
             'Content-Type: application/json',
+            'Accept: application/json',
             'Authorization: Bearer ' . DEEPSEEK_API_KEY
         ];
         $data = [
@@ -50,24 +51,23 @@ switch ($provider) {
             'stream' => false
         ];
         break;
-        
+
     case 'openrouter':
-        $url = OPENROUTER_API_URL;
+        $url = OPENROUTER_API_URL.'/api/v1/chat/completions';
         $headers = [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . OPENROUTER_API_KEY,
-            'HTTP-Referer: ' . $_SERVER['HTTP_HOST'],
-            'X-Title: AI Chat Demo'
+            'Authorization: Bearer ' . OPENROUTER_API_KEY
         ];
         $data = [
-            'model' => $model ?: 'openai/gpt-4o',
+            'model' => $model ?: 'deepseek/deepseek-r1-0528',
             'messages' => [
+                ['role' => 'system', 'content' => 'You are a helpful assistant'],
                 ['role' => 'user', 'content' => $message]
             ],
             'stream' => false
         ];
         break;
-        
+
     default:
         http_response_code(400);
         echo json_encode(['error' => 'Invalid provider']);
@@ -100,4 +100,3 @@ echo json_encode([
     'response_time' => $result['response_time'],
     'timestamp' => date('Y-m-d H:i:s')
 ]);
-?>

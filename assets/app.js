@@ -27,6 +27,7 @@ async function sendMessage(provider) {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': csrf_token
             },
+            credentials: 'same-origin', // <-- Add this line
             body: JSON.stringify({
                 message: message,
                 provider: provider,

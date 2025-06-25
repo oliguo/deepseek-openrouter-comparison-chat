@@ -1,6 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'api/config.php';
 require_once 'includes/session.php';
+require_once 'includes/functions.php';
 
 startSecureSession();
 
@@ -17,6 +22,7 @@ if (isLoggedIn()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Chat Demo - Login</title>
     <link rel="stylesheet" href="assets/style.css">
+    
 </head>
 <body>
     <div class="login-container">
